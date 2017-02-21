@@ -33,10 +33,21 @@
 ===================== */
 
 // We set this to HTTP to prevent 'CORS' issues
-var downloadData = $.ajax("http://");
-var parseData = function() {};
-var makeMarkers = function() {};
-var plotMarkers = function() {};
+var url = "https://raw.githubusercontent.com/CPLN692-MUSA611/datasets/master/json/philadelphia-solar-installations.json";
+var downloadData = $.ajax(url);
+var parseData = function(rawData) {
+  var cleanData = JSON.parse(rawData);
+    return cleanData;
+};
+var makeMarkers = function(cleanData) {
+    return _.map(cleanData, function (x){
+        return L.marker([x.LAT,x.LONG_]);
+    });
+};
+var plotMarkers = function(x) {
+  _.map(x,function(x){x.addTo(map);});
+  };
+
 
 
 /* =====================
